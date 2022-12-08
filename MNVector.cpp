@@ -3,48 +3,73 @@
 
 using  namespace std;
 
-template <typename T, int c>
-class MNVector {
-private:
-    T* Vector;
-    int size;
-    int capacity;
-public:
-    MNVector(int cap){
-        capacity = cap;
-        size = 0;
-        Vector(new int[capacity]);
-    }
-    ~MNVector(){
-        delete [] Vector;
-    }
-    MNVector& operator= (const MNVector& other){
-        cout << "copy assignment\n";
-        if (size != other.size){
-            cout << "size mismatched: " << size << ", " << other.size << '\n';
-            exit(1);
-        }
-        for (int i=0; i < size; i++){
-            Vector[i] = other.Vector[i];
+template <class T>
+MNVector<T>::MNVector(ll cap){
+    capacity = cap;
+    size = 0;
+    arr = new T[capacity];
+}
 
-            return *this;
-        }
-    }
-    T pop_back(T& vector){
+template <class T>
+MNVector<T>::MNVector(){
+    capacity = 2;
+    size = 0;
+    arr = new T[capacity];
+}
 
-    }
-    void insert(){
+template <class T>
+MNVector<T>::~MNVector(){
+    delete[] arr;
+}
 
-    }
-    void erase(){
-
-    }
-    int resize(){
-        return capacity*capacity;
-    }
-    bool empty(){
-        if (size ==0){
-            return true;
+template <class T>
+ MNVector<T>& MNVector<T>::operator= (const MNVector<T>& other){
+    cout << "copy assignment\n";
+    if (this != &other) {
+        delete[] arr;
+        size = other.size;
+        capacity = other.capacity;
+        for (int i=0; i < other.size; i++){
+            arr[i] = other.arr[i];
         }
     }
-};
+    else{
+        cout << "Cannot delete itself\n";
+    }
+}
+
+template <class T>
+T MNVector<T>::pop_back(){
+    return arr[size--];// 7asa eno el mfrood a4=3mel -1 ba3d ma3mel size-- bas msh mot2akeda
+}
+
+template <class T>
+void MNVector<T>::insert(){
+
+}
+template <class T>
+void MNVector<T>::erase(){
+
+}
+
+template <class T>
+ll MNVector<T>::resize(){
+    T* newArr = new T[capacity*2];
+    capacity *= 2;
+    for (int i=0; i < size; i++){
+        newArr[i] = arr[i];
+    }
+    delete[] arr;
+    arr = newArr;
+    newArr = nullptr;
+}
+
+template <class T>
+bool MNVector<T>::empty(){
+    if (size ==0){
+        return true;
+    }
+    else {
+        return false;
+    }
+}

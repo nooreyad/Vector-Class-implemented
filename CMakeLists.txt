@@ -5,4 +5,4 @@ set(CMAKE_CXX_STANDARD 14)
 
 include_directories(.)
 
-add_executable(OOP_Assignment_3 main.cpp)
+add_executable(OOP_Assignment_3 main.cpp MNVector.cpp MNVector.h)
