@@ -11,5 +11,13 @@ int main(){
     vec.resize();
     cout << "resize\n";
 
-    cout << "shaghal";
+    cout << "shaghal\n";
+    MNVector<string> t(5);
+    t.push_back("merna");
+    t.push_back("test");
+    t.push_back("test1");
+    t.push_back("test2");
+    t.push_back("test3");
+    t.push_back("test4");
+    cout << t[0];
 }

@@ -73,3 +73,64 @@ bool MNVector<T>::empty(){
         return false;
     }
 }
+
+//template <class T>
+//MNVector<T>::MNVector(const MNVector& other){
+//    cout << "Copy constructor called" << endl;
+//    for (int i = 0; i < other.Size(); ++i) {
+//        *(this->arr[i]) = *(other.arr[i]);
+//    }
+//    this-> size = other.size;
+//    this-> capacity = other.capacity;
+//}
+
+template <class T>
+int MNVector<T>::Size() const{
+    return this->size;
+}
+
+template <class T>
+int MNVector<T>::Capacity() const{
+    return this->capacity;
+}
+
+template <class T>
+bool MNVector<T>::operator< (const MNVector<T>& other){
+    return true;
+}
+
+template <class T>
+T& MNVector<T>::operator[](int n){
+    if(n > size-1){
+        cout << "An error has occured, index out of range." << endl;
+        exit(-1);
+    }
+    return arr[n];
+}
+
+//template <class T>
+//ostream& operator << (ostream& out, MNVector<T> vec){
+//    for (int i = 0; i < vec.Size(); ++i) {
+//        out << vec.arr[i] << ' ';
+//    }
+//    out << endl;
+//    return out;
+//}
+
+template <class T>
+int MNVector<T>::push_back(T n) {
+    if(size < capacity){
+        arr[size++] = n;
+    } else {
+        T* newarr = new T[capacity*2];
+        capacity *= 2;
+        for(int i = 0; i < size; i++){
+            newarr[i] = arr[i];
+        }
+        delete[] arr;
+        arr = newarr;
+        arr[size++] = n;
+        newarr = nullptr;
+    }
+    return size;
+}
