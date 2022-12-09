@@ -18,6 +18,16 @@ MNVector<T>::MNVector(){
 }
 
 template <class T>
+MNVector<T>::MNVector(T* arr2, int n){
+    capacity = 2*n;
+    size = n;
+    arr = new T[capacity];
+    for (auto i = 0; i < n; ++i) {
+        *arr[i] = *arr2[i];
+    }
+}
+
+template <class T>
 MNVector<T>::~MNVector(){
     delete[] arr;
 }
@@ -48,7 +58,7 @@ void MNVector<T>::insert(){
 
 }
 template <class T>
-void MNVector<T>::erase(){
+void MNVector<T>::erase(iterator x){
 
 }
 
@@ -101,7 +111,7 @@ bool MNVector<T>::operator< (const MNVector<T>& other){
 
 template <class T>
 T& MNVector<T>::operator[](int n){
-    if(n > size-1){
+    if(n < 0 || n > size-1){
         cout << "An error has occurred, index out of range." << endl;
         exit(-1);
     }
@@ -135,3 +145,20 @@ int MNVector<T>::push_back(T n) {
     return size;
 }
 
+template<class T>
+void MNVector<T>::erase(iterator x, iterator y){
+    MNVector<T> tempVec;
+    int cnt = 0;
+    for (auto i = arr->begin(); i < x; ++i) {
+        tempVec[i] = arr[i];
+        cnt++;
+    }
+    for (auto i = y; i < arr->end(); ++i) {
+        tempVec[cnt] = arr[i];
+        cnt++;
+    }
+    delete [] arr;
+    arr = tempVec;
+    size = cnt;
+    tempVec = nullptr;
+}

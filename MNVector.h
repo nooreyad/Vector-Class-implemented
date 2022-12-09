@@ -10,10 +10,12 @@ protected:
     T* arr;
     ll size;
     ll capacity;
+    typedef T* iterator;
 public:
     //// Constructors and Big 4
-    explicit MNVector();
-    explicit MNVector(ll cap);
+    MNVector();
+    MNVector(ll cap);
+    MNVector(T* arr2, int n);
     MNVector(const MNVector& other);
     ~MNVector();
     MNVector& operator= (const MNVector& other);
@@ -25,12 +27,13 @@ public:
     //// Modifing operations
     int push_back(T n);
     T pop_back();
-    void erase();
+    void erase(iterator x);
+    void erase(iterator x, iterator y);
     void clear();
     void insert();
 
     //// Comparison operations
-    bool operator== (const iterator<T, T>& other);
+    bool operator== (const MNVector<T>& other);
     bool operator< (const MNVector<T>& other);
 
     //// Capacity operations
@@ -42,26 +45,32 @@ public:
     //// Friends
     friend ostream& operator << (ostream& out, MNVector<T> vec);
 
-    template <class U>
-    class iterator {
-    private:
-        T* ptr;
-    public:
-        explicit iterator(){
-            ptr = nullptr;
-        }
-        explicit iterator(T* p) {
-            ptr = p;
-        }
-        bool operator==(const iterator& other) const {
-            return ptr == other.ptr;
-        }
-    };
+//    template <class U>
+//    class iterator {
+//    private:
+//        T* ptr;
+//    public:
+//        explicit iterator(){
+//            ptr = nullptr;
+//        }
+//        explicit iterator(T* p) {
+//            ptr = p;
+//        }
+//        bool operator==(const iterator& other) const {
+//            return ptr == other.ptr;
+//        }
+//    };
 
     //// Iterators
-    // std::_Bit_const_iterator::iterator begin();
-    std::_Bit_const_iterator::iterator end() const{
-        return iterator<T>(arr + size);
+    //std::_Bit_const_iterator::iterator begin();
+//    std::_Bit_const_iterator::iterator end() const{
+//        return iterator<T>(arr + size);
+//    }
+    iterator begin(){
+        return iterator(arr);
+    }
+    iterator end(){
+        return iterator(arr + size);
     }
 };
 #endif //OOP_ASSIGNMENT_3_MNVECTOR_H

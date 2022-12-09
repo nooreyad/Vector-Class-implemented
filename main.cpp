@@ -20,4 +20,9 @@ int main(){
     t.push_back("test3");
     t.push_back("test4");
     cout << t[0];
+    for (auto i = t.begin(); i < t.end(); ++i) {
+        cout << *i << endl;
+    }
+    int arr[5] = {0,1,2,3,4,};
+//    MNVector<int> t2(arr, 3);
 }
