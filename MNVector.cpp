@@ -102,7 +102,7 @@ bool MNVector<T>::operator< (const MNVector<T>& other){
 template <class T>
 T& MNVector<T>::operator[](int n){
     if(n > size-1){
-        cout << "An error has occured, index out of range." << endl;
+        cout << "An error has occurred, index out of range." << endl;
         exit(-1);
     }
     return arr[n];
@@ -122,15 +122,16 @@ int MNVector<T>::push_back(T n) {
     if(size < capacity){
         arr[size++] = n;
     } else {
-        T* newarr = new T[capacity*2];
+        T* newArr = new T[capacity*2];
         capacity *= 2;
         for(int i = 0; i < size; i++){
-            newarr[i] = arr[i];
+            newArr[i] = arr[i];
         }
         delete[] arr;
-        arr = newarr;
+        arr = newArr;
         arr[size++] = n;
-        newarr = nullptr;
+        newArr = nullptr;
     }
     return size;
 }
+

@@ -6,15 +6,14 @@ using namespace std;
 
 template <class T>
 class MNVector {
-private:
+protected:
     T* arr;
     ll size;
     ll capacity;
 public:
     //// Constructors and Big 4
-    MNVector();
-    MNVector(ll cap);
-    MNVector(T*, int n);
+    explicit MNVector();
+    explicit MNVector(ll cap);
     MNVector(const MNVector& other);
     ~MNVector();
     MNVector& operator= (const MNVector& other);
@@ -30,12 +29,8 @@ public:
     void clear();
     void insert();
 
-    //// Iterators
-    // iterator begin()
-    // iterator end()
-
     //// Comparison operations
-    bool operator== (const MNVector<T>& other);
+    bool operator== (const iterator<T, T>& other);
     bool operator< (const MNVector<T>& other);
 
     //// Capacity operations
@@ -46,7 +41,27 @@ public:
 
     //// Friends
     friend ostream& operator << (ostream& out, MNVector<T> vec);
+
+    template <class U>
+    class iterator {
+    private:
+        T* ptr;
+    public:
+        explicit iterator(){
+            ptr = nullptr;
+        }
+        explicit iterator(T* p) {
+            ptr = p;
+        }
+        bool operator==(const iterator& other) const {
+            return ptr == other.ptr;
+        }
+    };
+
+    //// Iterators
+    // std::_Bit_const_iterator::iterator begin();
+    std::_Bit_const_iterator::iterator end() const{
+        return iterator<T>(arr + size);
+    }
 };
-
-
 #endif //OOP_ASSIGNMENT_3_MNVECTOR_H
