@@ -84,15 +84,15 @@ bool MNVector<T>::empty(){
     }
 }
 
-//template <class T>
-//MNVector<T>::MNVector(const MNVector& other){
-//    cout << "Copy constructor called" << endl;
-//    for (int i = 0; i < other.Size(); ++i) {
-//        *(this->arr[i]) = *(other.arr[i]);
-//    }
-//    this-> size = other.size;
-//    this-> capacity = other.capacity;
-//}
+template <class T>
+MNVector<T>::MNVector(const MNVector& other){
+    cout << "Copy constructor called" << endl;
+    for (int i = 0; i < other.Size(); ++i) {
+        *(this->arr[i]) = *(other.arr[i]);
+    }
+    this->size = other.size;
+    this->capacity = other.capacity;
+}
 
 template <class T>
 int MNVector<T>::Size() const{
@@ -106,7 +106,24 @@ int MNVector<T>::Capacity() const{
 
 template <class T>
 bool MNVector<T>::operator< (const MNVector<T>& other){
-    return true;
+    if(this->size <= other.size){
+        for (int i = 0; i < this->size; ++i) {
+            if(arr[i] < other.arr[i]){
+                return true;
+            } else if(arr[i] > other.arr[i]){
+                return false;
+            }
+        }
+    } else {
+        for (int i = 0; i < other.size; ++i) {
+            if(arr[i] < other.arr[i]){
+                return true;
+            } else if(arr[i] > other.arr[i]){
+                return false;
+            }
+        }
+    }
+    return false;
 }
 
 template <class T>
@@ -120,8 +137,8 @@ T& MNVector<T>::operator[](int n){
 
 //template <class T>
 //ostream& operator << (ostream& out, MNVector<T> vec){
-//    for (int i = 0; i < vec.Size(); ++i) {
-//        out << vec.arr[i] << ' ';
+//    for (auto i = vec.begin(); i != vec.end(); ++i) {
+//        out << *i << ' ';
 //    }
 //    out << endl;
 //    return out;
@@ -161,4 +178,22 @@ void MNVector<T>::erase(iterator x, iterator y){
     arr = tempVec;
     size = cnt;
     tempVec = nullptr;
+}
+
+template<class T>
+void MNVector<T>::clear() {
+    for (T* i = arr; i != arr+size ; ++i) {
+        i->~T();
+    }
+    size = 0;
+}
+
+template<class T>
+MNVector<T> &MNVector<T>::operator=(const MNVector<T> &&other) {
+    cout << "Move assignment called" << endl;
+    size = other.size;
+    capacity = other.capacity;
+    arr = other. arr;
+    other.arr = nullptr;
+    return *this;
 }
