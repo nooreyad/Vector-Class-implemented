@@ -23,7 +23,7 @@ MNVector<T>::MNVector(T* arr2, int n){
     size = n;
     arr = new T[capacity];
     for (auto i = 0; i < n; ++i) {
-        *arr[i] = *arr2[i];
+        arr[i] = arr2[i];
     }
 }
 
@@ -69,34 +69,47 @@ void MNVector<T>::insert(iterator x, T y){
 }
 template <class T>
 void MNVector<T>::erase(iterator x){
-    MNVector<T> tempArr;
-    for (auto i = arr->begin(); i < x - 1; i++){
-        tempArr[i] = arr[i];
+    if(x < begin() || x > end()){
+        cout << "Invalid iterator\n";
+        exit(-1);
+    } else {
+        T* newArr = new T[capacity];
+        iterator itr2 = newArr;
+        size--;
+        for(iterator itr = begin() ; itr < x ; itr++){
+            *itr2 = *itr;
+            itr2++;
+        }
+        for(iterator itr = x+1 ; itr <= end() ; itr++){
+            *itr2 = *itr;
+            itr2++;
+        }
+        delete []arr;
+        arr = newArr;
     }
-    for (int i = x+1; i < arr->end(); i++){
-        tempArr[i] = arr[i];
-    }
-    delete[] arr;
-    arr = tempArr;
-    tempArr = nullptr;
 }
 
 template<class T>
-void MNVector<T>::erase(iterator x, iterator y){
-    MNVector<T> tempVec;
-    int cnt = 0;
-    for (auto i = arr->begin(); i < x; ++i) {
-        tempVec[i] = arr[i];
-        cnt++;
+void MNVector<T>::erase(iterator first, iterator last) {
+    if(first < begin() || first > end() || last < begin() || last > end()){
+        cout << "\aInvalid iterator" << endl;
+        exit(-1);
     }
-    for (auto i = y; i < arr->end(); ++i) {
-        tempVec[cnt] = arr[i];
-        cnt++;
+    else{
+        T* newArr = new T[capacity];
+        iterator itr2 = newArr;
+        size -= last-first;
+        for(iterator itr = begin() ; itr < first ; itr++){
+            *itr2 = *itr;
+            itr2++;
+        }
+        for(iterator itr = last ; itr <= end() ; itr++){
+            *itr2 = *itr;
+            itr2++;
+        }
+        delete []arr;
+        arr = newArr;
     }
-    delete [] arr;
-    arr = tempVec;
-    size = cnt;
-    tempVec = nullptr;
 }
 
 template <class T>
@@ -172,14 +185,15 @@ T& MNVector<T>::operator[](int n){
     return arr[n];
 }
 
-//template <class T>
-//ostream& operator << (ostream& out, MNVector<T> vec){
-//    for (auto i = vec.begin(); i != vec.end(); ++i) {
-//        out << *i << ' ';
-//    }
-//    out << endl;
-//    return out;
-//}
+template <class T>
+ostream& operator << (ostream& out, MNVector<T>& vec){
+    for (int i = 0; i < vec.Size(); ++i) {
+        out << vec.arr[i];
+        out << ' ';
+    }
+    out << endl;
+    return out;
+}
 
 template <class T>
 int MNVector<T>::push_back(T n) {
@@ -221,11 +235,12 @@ template<class T>
 bool MNVector<T>::operator==(const MNVector<T> &other) {
     if(this->size == other.size){
         for (int i=0; i < size; i++) {
-            if(arr[i] == other.arr[i]){
-                continue;
+            if(arr[i] != other.arr[i]){
+                return false;
             }
         }
         return true;
+    } else {
+        return false;
     }
-    return false;
 }

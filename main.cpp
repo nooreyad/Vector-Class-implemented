@@ -29,14 +29,14 @@ int main(){
 //        cout << *i << endl;
 //    }
 //    t.erase(t.begin(), t.end());
-//    int arr[5] = {0,1,2,3,4,};
-//    MNVector<int> t2(arr, 3);
+    int arr[5] = {0,1,2,3,4,};
+    MNVector<int> t2(arr, 3);
 //    t.clear();
 //    cout << t.Size() << endl;
 //    for (auto i = t.begin(); i < t.end(); ++i) {
 //        cout << *i << endl;
 //    }
-//    cout << t;
+    cout << t;
     MNVector<string> t4;
     t4.push_back("merna");
     t4.push_back("vest");
@@ -53,19 +53,26 @@ int main(){
     num.push_back(3);
     num.push_back(4);
     MNVector<int> num2(5);
-    num.push_back(1);
-    num.push_back(2);
-    num.push_back(3);
-    num.push_back(4);
+    num2.push_back(1);
+    num2.push_back(2);
+    num2.push_back(3);
+    num2.push_back(5);
+
+    num2.erase(num2.begin()+3);
+    cout << num2.Size() << endl;
+    num2.erase(num2.begin()+2, num2.end());
+    cout << num2.Size() << endl;
+
     if(num == num2){
         cout << "Yes\n";
     } else {
         cout << "No\n";
     }
+
     // move assignment implementation
-//    for (auto i = t.begin(); i < t.end(); ++i) {
-//        cout << *i << endl;
-//    }
+    for (auto i = num2.begin(); i < num2.end(); ++i) {
+        cout << *i << endl;
+    }
 //    cout << endl;
 //    for (auto i = t4.begin(); i < t4.end(); ++i) {
 //        cout << *i << endl;

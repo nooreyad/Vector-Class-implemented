@@ -3,6 +3,9 @@
 #include <bits/stdc++.h>
 #define ll long long
 using namespace std;
+template <class T> class MNVector;
+template <class T> ostream& operator << (ostream& out, MNVector<T>& vec);
+
 
 template <class T>
 class MNVector {
@@ -43,7 +46,7 @@ public:
     bool empty();
 
     //// Friends
-    friend ostream& operator << (ostream& out, MNVector<T> vec);
+    friend ostream& operator << <T> (ostream& out, MNVector<T>& vec);
 
     //// Iterators
     iterator begin(){
