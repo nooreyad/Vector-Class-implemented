@@ -220,13 +220,12 @@ MNVector<T> &MNVector<T>::operator=(const MNVector<T> &&other) {
 template<class T>
 bool MNVector<T>::operator==(const MNVector<T> &other) {
     if(this->size == other.size){
-        for (int i = 0; i < this->size; ++i) {
+        for (int i=0; i < size; i++) {
             if(arr[i] == other.arr[i]){
-                return true;
-            } else {
-                return false;
+                continue;
             }
         }
+        return true;
     }
     return false;
 }

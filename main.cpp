@@ -42,17 +42,32 @@ int main(){
     t4.push_back("vest");
     t4.push_back("test1");
     t4.push_back("test2");
-    if(t < t4){
+//    if(t < t4){
+//        cout << "Yes\n";
+//    } else {
+//        cout << "No\n";
+//    }
+    MNVector<int> num(5);
+    num.push_back(1);
+    num.push_back(2);
+    num.push_back(3);
+    num.push_back(4);
+    MNVector<int> num2(5);
+    num.push_back(1);
+    num.push_back(2);
+    num.push_back(3);
+    num.push_back(4);
+    if(num == num2){
         cout << "Yes\n";
     } else {
         cout << "No\n";
     }
     // move assignment implementation
-    for (auto i = t.begin(); i < t.end(); ++i) {
-        cout << *i << endl;
-    }
-    cout << endl;
-    for (auto i = t4.begin(); i < t4.end(); ++i) {
-        cout << *i << endl;
-    }
+//    for (auto i = t.begin(); i < t.end(); ++i) {
+//        cout << *i << endl;
+//    }
+//    cout << endl;
+//    for (auto i = t4.begin(); i < t4.end(); ++i) {
+//        cout << *i << endl;
+//    }
 }
