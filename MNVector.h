@@ -24,13 +24,13 @@ public:
     //// Access operations
     T& operator[](int n);
 
-    //// Modifing operations
+    //// Modifying operations
     int push_back(T n);
     T pop_back();
     void erase(iterator x);
     void erase(iterator x, iterator y);
     void clear();
-    void insert();
+    void insert(iterator x, T y);
 
     //// Comparison operations
     bool operator== (const MNVector<T>& other);

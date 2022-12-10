@@ -50,16 +50,53 @@ template <class T>
 
 template <class T>
 T MNVector<T>::pop_back(){
-    return arr[size--];// 7asa eno el mfrood a4=3mel -1 ba3d ma3mel size-- bas msh mot2akeda
+    return arr[size-- -1];
 }
 
 template <class T>
-void MNVector<T>::insert(){
-
+void MNVector<T>::insert(iterator x, T y){
+    MNVector<T> tempArr;
+    for (auto i = arr->begin(); i < x - 1; i++){
+        tempArr[i] = arr[i];
+    }
+    tempArr[x] = y;
+    for (int i= x + 1; i < arr->end(); i++){
+        tempArr[i] = arr[i];
+    }
+    delete[] arr;
+    arr = tempArr;
+    tempArr = nullptr;
 }
 template <class T>
 void MNVector<T>::erase(iterator x){
+    MNVector<T> tempArr;
+    for (auto i = arr->begin(); i < x - 1; i++){
+        tempArr[i] = arr[i];
+    }
+    for (int i = x+1; i < arr->end(); i++){
+        tempArr[i] = arr[i];
+    }
+    delete[] arr;
+    arr = tempArr;
+    tempArr = nullptr;
+}
 
+template<class T>
+void MNVector<T>::erase(iterator x, iterator y){
+    MNVector<T> tempVec;
+    int cnt = 0;
+    for (auto i = arr->begin(); i < x; ++i) {
+        tempVec[i] = arr[i];
+        cnt++;
+    }
+    for (auto i = y; i < arr->end(); ++i) {
+        tempVec[cnt] = arr[i];
+        cnt++;
+    }
+    delete [] arr;
+    arr = tempVec;
+    size = cnt;
+    tempVec = nullptr;
 }
 
 template <class T>
@@ -163,24 +200,6 @@ int MNVector<T>::push_back(T n) {
 }
 
 template<class T>
-void MNVector<T>::erase(iterator x, iterator y){
-    MNVector<T> tempVec;
-    int cnt = 0;
-    for (auto i = arr->begin(); i < x; ++i) {
-        tempVec[i] = arr[i];
-        cnt++;
-    }
-    for (auto i = y; i < arr->end(); ++i) {
-        tempVec[cnt] = arr[i];
-        cnt++;
-    }
-    delete [] arr;
-    arr = tempVec;
-    size = cnt;
-    tempVec = nullptr;
-}
-
-template<class T>
 void MNVector<T>::clear() {
     for (T* i = arr; i != arr+size ; ++i) {
         i->~T();
@@ -196,4 +215,18 @@ MNVector<T> &MNVector<T>::operator=(const MNVector<T> &&other) {
     arr = other. arr;
     other.arr = nullptr;
     return *this;
+}
+
+template<class T>
+bool MNVector<T>::operator==(const MNVector<T> &other) {
+    if(this->size == other.size){
+        for (int i = 0; i < this->size; ++i) {
+            if(arr[i] == other.arr[i]){
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+    return false;
 }
