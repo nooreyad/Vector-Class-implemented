@@ -17,12 +17,14 @@ int main(){
     t.push_back("test");
     t.push_back("test1");
     t.push_back("test2");
-
+    t.insert(t.begin(), "before merna");
+//    cout << t[10] << endl;
+//    t.erase(t.begin()-2);
+//    t.erase(t.begin()-2, t.end());
 //    cout << t[0] << endl;
 //    for (auto i = t.begin(); i < t.end(); ++i) {
 //        cout << *i << endl;
 //    }
-    cout << endl;
     MNVector<string> &t3(t);
 //    cout << t3[0] << endl;
 //    for (auto i = t3.begin(); i < t3.end(); ++i) {

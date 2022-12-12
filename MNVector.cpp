@@ -55,60 +55,82 @@ T MNVector<T>::pop_back(){
 
 template <class T>
 void MNVector<T>::insert(iterator x, T y){
-    MNVector<T> tempArr;
-    for (auto i = arr->begin(); i < x - 1; i++){
-        tempArr[i] = arr[i];
+    try{
+        if(x < begin() || x > end())
+            throw "Invalid iterator";
+        else {
+            T* newArr = new T[capacity*2];
+            iterator itr2 = newArr;
+            size++;
+            for(iterator itr = begin() ; itr < x ; itr++){
+                *itr2 = *itr;
+                itr2++;
+            }
+            *itr2 = y;
+            itr2++;
+            for(iterator itr = x+1 ; itr <= end() ; itr++){
+                *itr2 = *itr;
+                itr2++;
+            }
+            delete[] arr;
+            arr = newArr;
+//            newArr = nullptr;
+        }
     }
-    tempArr[x] = y;
-    for (int i= x + 1; i < arr->end(); i++){
-        tempArr[i] = arr[i];
+    catch(const char* msg){
+        cout << msg << endl;
     }
-    delete[] arr;
-    arr = tempArr;
-    tempArr = nullptr;
 }
 template <class T>
 void MNVector<T>::erase(iterator x){
-    if(x < begin() || x > end()){
-        cout << "Invalid iterator\n";
-        exit(-1);
-    } else {
-        T* newArr = new T[capacity];
-        iterator itr2 = newArr;
-        size--;
-        for(iterator itr = begin() ; itr < x ; itr++){
-            *itr2 = *itr;
-            itr2++;
+    try{
+        if(x < begin() || x > end()){
+            throw "Invalid iterator";
+        } else {
+            T* newArr = new T[capacity];
+            iterator itr2 = newArr;
+            size--;
+            for(iterator itr = begin() ; itr < x ; itr++){
+                *itr2 = *itr;
+                itr2++;
+            }
+            for(iterator itr = x+1 ; itr <= end() ; itr++){
+                *itr2 = *itr;
+                itr2++;
+            }
+            delete []arr;
+            arr = newArr;
         }
-        for(iterator itr = x+1 ; itr <= end() ; itr++){
-            *itr2 = *itr;
-            itr2++;
-        }
-        delete []arr;
-        arr = newArr;
+    }
+    catch(const char* &msg){
+        cout << msg << endl;
     }
 }
 
 template<class T>
 void MNVector<T>::erase(iterator first, iterator last) {
-    if(first < begin() || first > end() || last < begin() || last > end()){
-        cout << "\aInvalid iterator" << endl;
-        exit(-1);
+    try {
+        if(first < begin() || first > end() || last < begin() || last > end()){
+            throw "Invalid iterator";
+        }
+        else{
+            T* newArr = new T[capacity];
+            iterator itr2 = newArr;
+            size -= last-first;
+            for(iterator itr = begin() ; itr < first ; itr++){
+                *itr2 = *itr;
+                itr2++;
+            }
+            for(iterator itr = last ; itr <= end() ; itr++){
+                *itr2 = *itr;
+                itr2++;
+            }
+            delete []arr;
+            arr = newArr;
+        }
     }
-    else{
-        T* newArr = new T[capacity];
-        iterator itr2 = newArr;
-        size -= last-first;
-        for(iterator itr = begin() ; itr < first ; itr++){
-            *itr2 = *itr;
-            itr2++;
-        }
-        for(iterator itr = last ; itr <= end() ; itr++){
-            *itr2 = *itr;
-            itr2++;
-        }
-        delete []arr;
-        arr = newArr;
+    catch (const char* &msg){
+        cout << msg << endl;
     }
 }
 
@@ -122,6 +144,7 @@ ll MNVector<T>::resize(){
     delete[] arr;
     arr = newArr;
     newArr = nullptr;
+    return capacity;
 }
 
 template <class T>
@@ -178,9 +201,13 @@ bool MNVector<T>::operator< (const MNVector<T>& other){
 
 template <class T>
 T& MNVector<T>::operator[](int n){
-    if(n < 0 || n > size-1){
-        cout << "An error has occurred, index out of range." << endl;
-        exit(-1);
+    try {
+        if(n < 0 || n > size-1)
+            throw "An error has occurred, index out of range.";
+    }
+    catch(const char* msg){
+        cout << msg << endl;
+        return arr[0];
     }
     return arr[n];
 }
