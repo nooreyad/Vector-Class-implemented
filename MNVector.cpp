@@ -68,7 +68,7 @@ void MNVector<T>::insert(iterator x, T y){
             }
             *itr2 = y;
             itr2++;
-            for(iterator itr = x+1 ; itr <= end() ; itr++){
+            for(iterator itr = x ; itr < end() ; itr++){
                 *itr2 = *itr;
                 itr2++;
             }
